@@ -44,6 +44,17 @@ A daily SQL practice repository focused on building strong SQL fundamentals and 
 
 📁 `day-4/`
 
+### Day 5 — LEAD() Window Function
+**Topics learned:**
+- `LEAD()` for accessing the next row
+- Comparing the current row with the next row
+- Using `PARTITION BY` with `LEAD()`
+- Calculating differences between current and next values
+- Understanding why the final row in a window returns `NULL`
+- Using subqueries with window-function results
+
+📁 `day-5/`
+
 ## 🧠 Key SQL Concepts
 
 ### Window Functions
@@ -59,18 +70,56 @@ RANK() OVER (PARTITION BY department_id ORDER BY salary DESC)
 LAG(salary) OVER (ORDER BY id)
 ```
 
-### LAG()
-`LAG()` returns a value from a previous row based on the ordering defined inside `OVER()`.
-
 ```sql
-LAG(salary) OVER (ORDER BY id) AS previous_salary
+LEAD(salary) OVER (ORDER BY id)
 ```
 
-This is useful for:
-- Comparing current and previous values
-- Finding increases/decreases
-- Calculating changes over time
-- Detecting row-to-row differences
+### LAG() vs LEAD()
+
+| Function | Looks at | Direction |
+|---|---|---|
+| `LAG()` | Previous row | Backward |
+| `LEAD()` | Next row | Forward |
+
+```text
+LAG  → previous row
+LEAD → next row
+```
+
+### LEAD()
+`LEAD()` returns a value from a following row based on the ordering defined inside `OVER()`.
+
+```sql
+LEAD(salary) OVER (ORDER BY id) AS next_salary
+```
+
+When combined with `PARTITION BY`, the next value is calculated separately within each group:
+
+```sql
+LEAD(salary) OVER (
+    PARTITION BY department
+    ORDER BY id
+) AS next_salary
+```
+
+### Understanding id and ORDER BY
+
+In the practice table, `id` uniquely identifies an employee and is used to define the row order.
+
+```text
+id    name    salary
+1     A       40000
+2     B       50000
+3     C       60000
+```
+
+Therefore:
+
+```sql
+LEAD(salary) OVER (ORDER BY id)
+```
+
+means that SQL should use the employee IDs to determine which row comes next.
 
 ### RANK() vs DENSE_RANK()
 
@@ -104,7 +153,6 @@ For each problem:
 
 Future practice will progressively cover:
 
-- `LEAD()`
 - More advanced window functions
 - Running totals
 - Moving averages
