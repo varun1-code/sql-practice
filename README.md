@@ -55,6 +55,16 @@ A daily SQL practice repository focused on building strong SQL fundamentals and 
 
 📁 `day-5/`
 
+### Day 6 — CTE (Common Table Expression)
+**Topics learned:**
+- CTEs using `WITH`
+- Giving a temporary result a meaningful name
+- Calculating department averages with `AVG()` and `GROUP BY`
+- Joining a CTE with the original table
+- Filtering rows using a value calculated by the CTE
+
+📁 `day-6/`
+
 ## 🧠 Key SQL Concepts
 
 ### Window Functions
